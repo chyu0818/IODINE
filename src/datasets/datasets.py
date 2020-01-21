@@ -31,7 +31,9 @@ class ClevrDataset(Dataset):
         dH = abs(H-self.crop_sz)//2
         dW = abs(W-self.crop_sz)//2
         crop = img[dH:-dH,dW:-dW,:3]
-        down = rescale(crop, self.down_scale, order=3, mode='reflect', multichannel=True)
+        H,W,C = crop.shape
+        print(H)
+        down = rescale(crop, self.down_scale*self.crop_sz/H, order=3, mode='reflect', multichannel=True)
         return down
 
 def main():

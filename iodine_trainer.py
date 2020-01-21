@@ -28,7 +28,7 @@ num_workers = 4
 
 ## Data Parameters
 max_num_samples = 20
-crop_sz = 120 ## Crop initial image down to square image with this dimension
+crop_sz = 100 ## Crop initial image down to square image with this dimension
 down_sz = 64 ## Rescale cropped image down to this dimension
 
 ## Model Hyperparameters
