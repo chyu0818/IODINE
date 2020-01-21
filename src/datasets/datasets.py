@@ -11,7 +11,7 @@ class ClevrDataset(Dataset):
 
     def __init__(self,datapath,data_type='train',max_num_samples=60000,crop_sz=256,down_sz=64):
         suffix = data_type
-        self.datapath = datapath + suffix + '/CLEVR_' + suffix + '_'
+        self.datapath = datapath + '/' + data_type + '/test_'
         self.max_num_samples = max_num_samples
         self.crop_sz = crop_sz
         self.down_scale = down_sz/crop_sz
@@ -20,7 +20,7 @@ class ClevrDataset(Dataset):
         return self.max_num_samples
 
     def __getitem__(self,idx):
-        imgname = self.datapath + str(idx).zfill(7)
+        imgname = self.datapath + str(idx)
         imgpath = imgname + '.png'
         scaled_img = self.rescale_img(io.imread(imgpath))
         img = torch.tensor(scaled_img,dtype=torch.float32).permute((2,0,1))

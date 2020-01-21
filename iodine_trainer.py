@@ -12,14 +12,14 @@ from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 ## Paths for saving models and loading data
-save_path = '/home/mkelly2/iodine_clean/IODINE/trained_models/'
-datapath = '/raid/mkelly2/CLEVR_v1.0/images/'
+save_path = '/home/chyu/work/IODINE/trained_models/'
+datapath = '/home/bquach/IODINE/toy_data'
 model_name = 'iodine_clevr_wfeatures'
 save_path += model_name + '/'
 
 ## Training Parameters
 device = 'cuda:0'
-batch_size = 32
+batch_size = 1
 lr = 3e-4
 regularization = 0.
 n_epochs = 100
@@ -27,7 +27,7 @@ parallel = True
 num_workers = 4
 
 ## Data Parameters
-max_num_samples = 50000
+max_num_samples = 20
 crop_sz = 120 ## Crop initial image down to square image with this dimension
 down_sz = 64 ## Rescale cropped image down to this dimension
 
