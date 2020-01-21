@@ -2,6 +2,7 @@ import torch
 from skimage import io
 from skimage.transform import rescale, rotate
 from iodine import IODINE
+import torchvision.models as models
 
 def rescale_img(img):
         H,W,C = img.shape
