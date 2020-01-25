@@ -11,7 +11,7 @@ class ClevrDataset(Dataset):
 
     def __init__(self,datapath,data_type='train',max_num_samples=60000,crop_sz=256,down_sz=64):
         suffix = data_type
-        self.datapath = datapath + '/' + data_type + '/test_'
+        self.datapath = datapath + '/' + data_type + '/gauss_'
         self.max_num_samples = max_num_samples
         self.crop_sz = crop_sz
         self.down_scale = down_sz/crop_sz
@@ -32,7 +32,6 @@ class ClevrDataset(Dataset):
         dW = abs(W-self.crop_sz)//2
         crop = img[dH:-dH,dW:-dW,:3]
         H,W,C = crop.shape
-        print(H)
         down = rescale(crop, self.down_scale*self.crop_sz/H, order=3, mode='reflect', multichannel=True)
         return down
 

@@ -12,28 +12,28 @@ from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 ## Paths for saving models and loading data
-save_path = '/home/chyu/work/IODINE/trained_models/'
-datapath = '/home/bquach/IODINE/toy_data'
-model_name = 'iodine_clevr_wfeatures'
+save_path = '/home/bquach/IODINE/trained_models/'
+datapath = '/home/bquach/IODINE/gauss_data'
+model_name = 'iodine_gauss'
 save_path += model_name + '/'
 
 ## Training Parameters
 device = 'cuda:0'
-batch_size = 1
+batch_size = 10
 lr = 3e-4
 regularization = 0.
-n_epochs = 100
+n_epochs = 500
 parallel = True
 num_workers = 4
 
 ## Data Parameters
-max_num_samples = 20
-crop_sz = 100 ## Crop initial image down to square image with this dimension
+max_num_samples = 100
+crop_sz = 350 ## Crop initial image down to square image with this dimension
 down_sz = 64 ## Rescale cropped image down to this dimension
 
 ## Model Hyperparameters
 T = 5 ## Number of steps of iterative inference
-K = 11 ## Number of slots
+K = 2 ## Number of slots
 z_dim = 64 ## Dimensionality of latent codes
 channels_in = 16+16 ## Number of inputs to refinement network (16, + 16 additional if using feature extractor)
 out_channels = 4 ## Number of output channels for spatial broadcast decoder (RGB + mask logits channel)
@@ -60,7 +60,7 @@ v = IODINE(refine_net,decoder,T,K,z_dim,name=model_name,
 ## Will use all visible GPUs if parallel=True
 if parallel and torch.cuda.device_count() > 1:
   print('Using {} GPUs'.format(torch.cuda.device_count()))
-  v = torch.nn.DataParallel(v)
+  v = torch.nn.DataParallel(v, device_ids=[0, 1, 2, 4, 5, 6])
   v_module = v.module
 else:
   parallel = False
